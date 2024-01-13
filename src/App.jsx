@@ -30,7 +30,7 @@ function App() {
 
   return (
     <div
-      className='mx-auto max-w-screen-sm mt-4 py-4 px-16 bg-gradient-to-br from-green-700 to-yellow-700 h-fit shadow-xl shadow-gray-500'
+      className='container box-border rounded-2xl m-auto max-w-screen-sm my-4 py-4 px-16 bg-gradient-to-b from-teal-600 to-lime-600 h-fit shadow-xl shadow-gray-500'
       id='form'
     >
       <ButtonsHeader setQuery={setQuery} />

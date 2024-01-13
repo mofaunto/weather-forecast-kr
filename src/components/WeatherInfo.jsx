@@ -42,13 +42,15 @@ function WeatherInfo({
 
   return (
     <div>
-      <div className='flex items-center justify-center py-4 text-xl text-green-400'>
+      <div className='flex items-center justify-center py-4 text-xl text-amber-300'>
         <p>{details}</p>
       </div>
 
       <div className='flex flex-row items-center justify-between text-white py-4'>
-        <img src={iconUrlFromCode(icon)} alt='Weather Now' className='w-24' />
-        <p className='text-4xl'>{`${temp.toFixed()}°`}</p>
+        <div className='flex flex-row items-center justify-center'>
+          <img src={iconUrlFromCode(icon)} alt='Weather Now' className='w-24' />
+          <p className='text-4xl'>{`${temp.toFixed()}°`}</p>
+        </div>
         {/* Additional weather info */}
         <div className='flex flex-col space-y-2 items-start'>
           <div className='flex font-light text-sm items-center justify-center'>

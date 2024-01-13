@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UilSearch } from "@iconscout/react-unicons";
+import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
 
 function Inputs({ setQuery }) {
   const [city, setCity] = useState("");
@@ -23,10 +23,10 @@ function Inputs({ setQuery }) {
           onKeyDown={onKeyDownHandler}
           type='text'
           placeholder='Enter a city name'
-          className='text-lg font-light p-2 w-full shadow-xl focus:outline-none capitalize'
+          className='text-lg font-light p-2 w-full shadow-xl rounded-2xl focus:outline-none capitalize'
         />
         <UilSearch
-          size={24}
+          size={32}
           onClick={handleSearchClick}
           className='text-white cursor-pointer transition ease-out hover:scale-125'
         />
