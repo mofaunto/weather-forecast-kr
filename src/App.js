@@ -1,26 +1,48 @@
+import { useEffect, useState } from "react";
 import "./App.css";
-import UilReact from "@iconscout/react-unicons/icons/uil-react";
 import ButtonsHeader from "./components/ButtonsHeader";
 import Inputs from "./components/Inputs";
 import TimeAndLocation from "./components/TimeAndLocation";
 import WeatherInfo from "./components/WeatherInfo";
 import Forecast from "./components/Forecast";
-import getWeatherData from "./api/weatherapi";
+import getFormattedWeatherData from "./api/weatherapi";
+import fetchWeatherForecast from "./api/daily";
 
 function App() {
-  const fetchWeather = async () => {
-    const data = getWeatherData("weather", { q: "Seoul" });
-    console.log(data);
-  };
+  const [query, setQuery] = useState({ q: "Seoul" });
+  const [units, setUnits] = useState("metric");
+  const [weather, setWeather] = useState(null);
+  const [weather2, setWeather2] = useState(null);
 
-  fetchWeather();
+  useEffect(() => {
+    const fetchWeather = async () => {
+      await getFormattedWeatherData({ ...query, units }).then(async (data) => {
+        setWeather(data);
+        const data2 = await fetchWeatherForecast(data.lat, data.lon);
+        setWeather2(data2);
+      });
+    };
+
+    fetchWeather();
+  }, [query, units]);
+
+  const { daily } = { ...weather2 };
+
   return (
-    <div className='mx-auto max-w-screen-sm mt-4 py-4 px-16 bg-gradient-to-br from-green-700 to-yellow-700 h-fit shadow-xl shadow-gray-500'>
-      <ButtonsHeader />
-      <Inputs />
-      <TimeAndLocation />
-      <WeatherInfo />
-      <Forecast title='Daily Forecast' />
+    <div
+      className='mx-auto max-w-screen-sm mt-4 py-4 px-16 bg-gradient-to-br from-green-700 to-yellow-700 h-fit shadow-xl shadow-gray-500'
+      id='form'
+    >
+      <ButtonsHeader setQuery={setQuery} />
+      <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
+
+      {weather && (
+        <div>
+          <TimeAndLocation weather={weather} />
+          <WeatherInfo weather={weather} />
+          <Forecast title='Daily Forecast' items={daily} />
+        </div>
+      )}
     </div>
   );
 }
