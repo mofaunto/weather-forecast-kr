@@ -1,5 +1,5 @@
 const formatForecastWeather = async (lat, lon) => {
-  const apiKey = "APIKEY";
+  const apiKey = import.meta.env.VITE_WEATHER_API;
   const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
   try {
